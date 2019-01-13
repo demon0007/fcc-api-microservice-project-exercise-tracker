@@ -79,14 +79,14 @@ app.post('/api/exercise/add', (req, res) => {
 
 app.get('/api/exercise/log', (req, res) => {
   console.log(Object.keys(req.query).length)
-  if (req.query.userId == '') {
+  if (Object.keys(req.query).length == 0) {
     let query = Users.find({},['_id', 'name', 'excercise'], (err, matchArray) => {
     if (err) console.log(err)
     else {
       res.json(matchArray)
     }
   })
-  } else if (req.query.from != '' && req.query.to != '' && req.pquery.limit != '') {
+  } else if (Object.keys(req.query) == 1 && req.query.hasOwnProperty(') req.query != '') {
     Users.findById(req.query.userId, (err, match) => {
       if (err) console.log(err)
       else {
