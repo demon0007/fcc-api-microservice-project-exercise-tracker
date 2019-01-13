@@ -87,13 +87,15 @@ app.get('/api/exercise/log', (req, res) => {
     }
   })
   } else if (Object.keys(req.query).length == 1 && req.query.hasOwnProperty('userId') && req.query.userId != '') {
-    Users.findById(req.query.userId, (err, match) => {
+    Users.findById(req.query.userId, ['_id', 'name', 'excercise'],(err, match) => {
       if (err) console.log(err)
       else {
         // console.log(req.query.userId + " " + match)
         res.json(match)
       }
     })
+  } else {
+    let query = Users.find({_id: req.query.userId, excercise.date: {}})
   }
 })
 
