@@ -78,21 +78,16 @@ app.post('/api/exercise/add', (req, res) => {
 })
 
 app.get('/api/exercise/log', (req, res) => {
-  let query = Users.find({}, (err, matchArray) => {
+  if (req.params.userId == '') {
+    let query = Users.find({},['_id', 'name', 'excercise'], (err, matchArray) => {
     if (err) console.log(err)
     else {
-      console.log(matchArray)
-      let match = matchArray.map((m) => {
-        return {_id: m._id,
-                username: m.name,
-                excercise: m.excercise.map((e) => {
-                  return {description: e.description, duration: e.duration, date: new Date(e.date).toUTCString()}
-                })
-               }
-      })
       res.json(matchArray)
     }
   })
+  } else if (req.params.from != '' && req.params.to != '' && req.params.limit != '') {
+    Users.findById(req.params.userId, (err, match) )
+  }
 })
 
 
