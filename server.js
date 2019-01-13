@@ -86,7 +86,7 @@ app.get('/api/exercise/log', (req, res) => {
       res.json(matchArray)
     }
   })
-  } else if (Object.keys(req.query) == 1 && req.query.hasOwnProperty(') req.query != '') {
+  } else if (Object.keys(req.query).length == 1 && req.query.hasOwnProperty('userId') && req.query.userId != '') {
     Users.findById(req.query.userId, (err, match) => {
       if (err) console.log(err)
       else {
