@@ -78,18 +78,19 @@ app.post('/api/exercise/add', (req, res) => {
 })
 
 app.get('/api/exercise/log', (req, res) => {
-  if (req.params.userId == '') {
+  console.log(req.query.keys())
+  if (req.query.userId == '') {
     let query = Users.find({},['_id', 'name', 'excercise'], (err, matchArray) => {
     if (err) console.log(err)
     else {
       res.json(matchArray)
     }
   })
-  } else if (req.params.from != '' && req.params.to != '' && req.params.limit != '') {
-    Users.findById(req.params.userId, (err, match) => {
+  } else if (req.query.from != '' && req.query.to != '' && req.pquery.limit != '') {
+    Users.findById(req.query.userId, (err, match) => {
       if (err) console.log(err)
       else {
-        console.log(req.params.userId + " " + match)
+        // console.log(req.query.userId + " " + match)
         res.json(match)
       }
     })
