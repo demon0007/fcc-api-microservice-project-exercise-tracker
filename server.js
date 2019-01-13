@@ -77,6 +77,23 @@ app.post('/api/exercise/add', (req, res) => {
   }
 })
 
+app.get('/api/exercise/log', (req, res) => {
+  let query = Users.find({}, (err, matchArray) => {
+    if (err) console.log(err)
+    else {
+      let match = matchArray.map((m) => {
+        return {_id: m._id,
+                username: m.username,
+                excercise: m.excercise.map((e) => {
+                  return {description: e.description, duration: e.duration}
+                })
+               }
+      })
+    }
+  })
+})
+
+
 app.use(cors())
 
 
