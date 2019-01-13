@@ -37,9 +37,20 @@ app.post('/api/exercise/new-user', (req, res) => {
         res.json({"error": "Username Exists"})
       } else {
         let entry = new Users({name: userName})
-        entry
+        entry.save((err, result) => {
+          if (err) console.log("User Creation Error")
+          else res.json({"username": result.name, "_id": result._id})
+        })
       }
     }
+  })
+})
+
+app.get('/api/exercise/users', (req, res) => {
+  let query = Users.find({}).select(['name', '_id'])
+  query.exec((err, match) => {
+    if (err) console.log("Error Retriving Users" + err)
+    else res.json(match)
   })
 })
 
