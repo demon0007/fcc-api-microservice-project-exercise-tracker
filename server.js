@@ -59,7 +59,21 @@ app.post('/api/exercise/add', (req, res) => {
     if (req.body.date == '') {
       date = new Date()
     }
-    
+    date = new Date(req.body.date)
+    if (isNaN(date.getTime())) {
+      res.json({"error": "Insufficient Data"})
+    } else {
+      Users.findById(req.body.userId, (err, match) => {
+      if (err) return console.log(err)
+      // console.log(match)
+      match.excercise.push({description: req.body.description, duration: req.body.duration, date: date.getTime()})
+      match.save((err, data) => {
+        if (err) console.log(err)
+        else res.json({})
+      })
+      // return done(null, match)
+    })
+    }
   }
 })
 
