@@ -69,7 +69,7 @@ app.post('/api/exercise/add', (req, res) => {
       match.excercise.push({description: req.body.description, duration: req.body.duration, date: date.getTime()})
       match.save((err, data) => {
         if (err) console.log(err)
-        else res.json({})
+        else res.json(data)
       })
       // return done(null, match)
     })
