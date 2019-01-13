@@ -12,8 +12,8 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/exercise-track' )
 
 var Schema = mongoose.Schema
 var userSchema = new Schema({
-  username : {type: String, requiredd: true}
-  excercise:
+  username : {type: String, requiredd: true},
+  excercise: {type: Array}
 })/* = <Your Model> */
 
 var Users = mongoose.model('user', userSchema);
@@ -35,7 +35,7 @@ app.post('/api/exercise/new-user', (req, res) => {
         let entry = new Users({name: userName})
         entry.save((err, result) => {
           if (err) console.log("User Creation Error")
-          else res.json({"username": result.name, "_id": result._id})
+          else res.json({"username": result.username, "_id": result._id})
         })
       }
     }
@@ -43,13 +43,18 @@ app.post('/api/exercise/new-user', (req, res) => {
 })
 
 app.get('/api/exercise/users', (req, res) => {
-  let query = Users.find({}).select(['name', '_id'])
+  let query = Users.find({}).select(['username', '_id'])
   query.exec((err, match) => {
     if (err) console.log("Error Retriving Users" + err)
     else res.json(match)
   })
 })
 
+
+app.post('/api/exercise/add', (req, res) => {
+  console.log(req.body)
+  res.json({})
+})
 
 app.use(cors())
 
