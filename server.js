@@ -12,7 +12,7 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/exercise-track' )
 
 var Schema = mongoose.Schema
 var userSchema = new Schema({
-  username : {type: String, requiredd: true},
+  ame : {type: String, requiredd: true},
   excercise: {type: Array}
 })/* = <Your Model> */
 
@@ -43,7 +43,7 @@ app.post('/api/exercise/new-user', (req, res) => {
 })
 
 app.get('/api/exercise/users', (req, res) => {
-  let query = Users.find({}).select(['username', '_id'])
+  let query = Users.find({}).select(['name', '_id'])
   query.exec((err, match) => {
     if (err) console.log("Error Retriving Users" + err)
     else res.json(match)
@@ -90,7 +90,7 @@ app.get('/api/exercise/log', (req, res) => {
                 })
                }
       })
-      res.json(match)
+      res.json(matchArray)
     }
   })
 })
