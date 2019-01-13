@@ -97,10 +97,13 @@ app.get('/api/exercise/log', (req, res) => {
   } else {
     Users.findById(req.query.userId, ['_id', 'name', 'excercise'], (err, match) => {
       let sortedArr = []
-      match.forEach((m) => {
-        .
+      match.excercise.forEach((m) => {
+        if (m.date >= new Date(req.query.from).getTime() && m.date <= new Date(req.query.to).getTime()) {
+          sortedArr.push(m)
+        }
       })
     })
+    res.json({_id: maitch._id, username: match.name, excercise: sortedArr})
   }
 })
 
