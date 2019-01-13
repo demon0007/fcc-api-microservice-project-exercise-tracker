@@ -52,8 +52,11 @@ app.get('/api/exercise/users', (req, res) => {
 
 
 app.post('/api/exercise/add', (req, res) => {
-  console.log(req.body)
-  res.json({})
+  if (req.body.userId == '' || req.body.description == '' || req.body.duration == '') {
+    res.json({"error": "Insufficient Data"})
+  } else {
+    if (req.body.date)
+  }
 })
 
 app.use(cors())
