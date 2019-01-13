@@ -102,8 +102,8 @@ app.get('/api/exercise/log', (req, res) => {
           sortedArr.push(m)
         }
       })
+      res.json({_id: match._id, username: match.name, excercise: sortedArr.slice(0, req.query.limit)})
     })
-    res.json({_id: maitch._id, username: match.name, excercise: sortedArr})
   }
 })
 
