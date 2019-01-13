@@ -95,7 +95,12 @@ app.get('/api/exercise/log', (req, res) => {
       }
     })
   } else {
-    let query = Users.find({_id: req.query.userId, excercise.date: {}})
+    Users.findById(req.query.userId, ['_id', 'name', 'excercise'], (err, match) => {
+      let sortedArr = []
+      match.forEach((m) => {
+        .
+      })
+    })
   }
 })
 
