@@ -55,7 +55,11 @@ app.post('/api/exercise/add', (req, res) => {
   if (req.body.userId == '' || req.body.description == '' || req.body.duration == '') {
     res.json({"error": "Insufficient Data"})
   } else {
-    if (req.body.date)
+    let date
+    if (req.body.date == '') {
+      date = new Date()
+    }
+    
   }
 })
 
