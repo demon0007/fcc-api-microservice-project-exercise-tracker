@@ -12,16 +12,12 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/exercise-track' )
 
 var Schema = mongoose.Schema
 var userSchema = new Schema({
-  name : {type: String, requiredd: true}
+  username : {type: String, requiredd: true}
+  excercise:
 })/* = <Your Model> */
 
 var Users = mongoose.model('user', userSchema);
 
-var excerciseSchema = new Schema({
-  name : {type: String, requiredd: true}
-})/* = <Your Model> */
-
-var Excercise = mongoose.model('excercise', excerciseSchema);
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
