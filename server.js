@@ -86,7 +86,13 @@ app.get('/api/exercise/log', (req, res) => {
     }
   })
   } else if (req.params.from != '' && req.params.to != '' && req.params.limit != '') {
-    Users.findById(req.params.userId, (err, match) )
+    Users.findById(req.params.userId, (err, match) => {
+      if (err) console.log(err)
+      else {
+        console.log(req.params.userId + " " + match)
+        res.json(match)
+      }
+    })
   }
 })
 
