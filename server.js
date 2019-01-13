@@ -78,7 +78,7 @@ app.post('/api/exercise/add', (req, res) => {
 })
 
 app.get('/api/exercise/log', (req, res) => {
-  console.log(req.query.keys())
+  console.log(Object.keys(req.query).length)
   if (req.query.userId == '') {
     let query = Users.find({},['_id', 'name', 'excercise'], (err, matchArray) => {
     if (err) console.log(err)
