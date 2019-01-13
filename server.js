@@ -84,7 +84,7 @@ app.get('/api/exercise/log', (req, res) => {
       console.log(matchArray)
       let match = matchArray.map((m) => {
         return {_id: m._id,
-                username: m.username,
+                username: m.name,
                 excercise: m.excercise.map((e) => {
                   return {description: e.description, duration: e.duration, date: new Date(e.date).toUTCString()}
                 })
