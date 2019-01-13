@@ -23,13 +23,28 @@ var excerciseSchema = new Schema({
 
 var Excercise = mongoose.model('excercise', excerciseSchema);
 
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
 
+app.post('/api/exercise/new-user', (req, res) => {
+  let userName = req.body.username
+  let query = Users.find({name: userName})
+  query.select(['name'])
+  query.exec((err, result) => {
+    if (err) console.log(err)
+    else {
+      if (result.length > 0) {
+        res.json({"error": "Username Exists"})
+      } else {
+        let entry = new Users({name: userName})
+        entry
+      }
+    }
+  })
+})
 
 
 app.use(cors())
-
-app.use(bodyParser.urlencoded({extended: false}))
-app.use(bodyParser.json())
 
 
 app.use(express.static('public'))
