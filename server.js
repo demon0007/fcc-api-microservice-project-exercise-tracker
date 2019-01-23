@@ -67,7 +67,7 @@ app.post('/api/exercise/add', (req, res) => {
       console.log(date.getTime())
       res.json({"error": "Insufficient Data {Date}"})
     } else {
-      Users.findById(req.body.userId, (err, match) => {
+      Users.findById(req.body.userId,['_id', 'name', 'excercise'], (err, match) => {
       if (err) return console.log(err)
       console.log(match)
       match.excercise.push({description: req.body.description, duration: req.body.duration, date: date.getTime()})
@@ -113,15 +113,12 @@ app.get('/api/exercise/log', (req, res) => {
     Users.findById(req.query.userId, ['_id', 'name', 'excercise'], (err, match) => {
       let sortedArr = []
       match.excercise.forEach((m) => {
-        console.log(m)
-        console.log
-        console.log(new Date(req.query.from).getTime())
-        console.log(new Date(req.query.to).getTime())
+        // console.log(req.query.limit?"p":"a")
         if (m.date >= new Date(req.query.from).getTime() && m.date <= new Date(req.query.to).getTime()) {
-          sortedArr.push(m)
+          sortedArr.push({description: m.description, duration: m.duration, date: new Date(m.date).getDate()+"-"+('0' + (new Date(m.date).getMonth()+1)).slice(-2)+"-"+new Date(m.date).getFullYear()})
         }
       })
-      res.json({_id: match._id, username: match.name, excercise: sortedArr.slice(0, req.query.limit)})
+      res.json({_id: match._id, username: match.name, excercise: sortedArr.slice(0, req.query.limit?req.query.limit:-1)})
     })
   }
 })
