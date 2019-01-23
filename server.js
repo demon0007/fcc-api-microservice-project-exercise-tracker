@@ -12,7 +12,7 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/exercise-track' )
 
 var Schema = mongoose.Schema
 var userSchema = new Schema({
-  ame : {type: String, requiredd: true},
+  name : {type: String, requiredd: true},
   excercise: {type: Array}
 },{ 
     usePushEach: true 
@@ -90,11 +90,12 @@ app.get('/api/exercise/log', (req, res) => {
     let query = Users.find({},['_id', 'name', 'excercise'], (err, matchArray) => {
     if (err) console.log(err)
     else {
+      console.log(matchArray)
       matchArray = matchArray.map(match => { 
         return  {
           id: match._id,
           name: match.name,
-          excercise: match.excercise.map( e => {})
+          excercise: match.excercise.map( e => {return {description: e.description, duration: e.duration, date: new Date(e.date).getDate()+"-"+(new Date(e.date).getMonth()+1)+"-"+new Date(e.date).getFullYear()}})
         }
       })
       res.json(matchArray)
