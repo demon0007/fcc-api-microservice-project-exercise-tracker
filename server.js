@@ -59,7 +59,7 @@ app.post('/api/exercise/add', (req, res) => {
     if (req.body.date == '') {
       date = new Date()
     } else {
-      
+      date = new Date(req.body.date)
     }
     if (isNaN(date.getTime())) {
       console.log(date.getTime())
