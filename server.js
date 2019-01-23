@@ -106,7 +106,11 @@ app.get('/api/exercise/log', (req, res) => {
       if (err) console.log(err)
       else {
         // console.log(req.query.userId + " " + match)
-        res.json(match)
+        res.json({
+          id: match._id,
+          name: match.name,
+          excercise: match.excercise.map( e => {return {description: e.description, duration: e.duration, date: new Date(e.date).getDate()+"-"+('0' + (new Date(e.date).getMonth()+1)).slice(-2)+"-"+new Date(e.date).getFullYear()}})
+        })
       }
     })
   } else {
