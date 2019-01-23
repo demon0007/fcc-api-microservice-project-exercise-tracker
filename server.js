@@ -58,10 +58,12 @@ app.post('/api/exercise/add', (req, res) => {
     let date
     if (req.body.date == '') {
       date = new Date()
+    } else {
+      
     }
-    date = new Date(req.body.date)
     if (isNaN(date.getTime())) {
-      res.json({"error": "Insufficient Data"})
+      console.log(date.getTime())
+      res.json({"error": "Insufficient Data {Date}"})
     } else {
       Users.findById(req.body.userId, (err, match) => {
       if (err) return console.log(err)
