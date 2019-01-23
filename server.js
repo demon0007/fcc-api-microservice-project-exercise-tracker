@@ -14,6 +14,8 @@ var Schema = mongoose.Schema
 var userSchema = new Schema({
   ame : {type: String, requiredd: true},
   excercise: {type: Array}
+},{ 
+    usePushEach: true 
 })/* = <Your Model> */
 
 var Users = mongoose.model('user', userSchema);
@@ -88,6 +90,13 @@ app.get('/api/exercise/log', (req, res) => {
     let query = Users.find({},['_id', 'name', 'excercise'], (err, matchArray) => {
     if (err) console.log(err)
     else {
+      matchArray = matchArray.map(match => { 
+        return  {
+          id: match._id,
+          name: match.name,
+          excercise: match.excercise.map( e => {})
+        }
+      })
       res.json(matchArray)
     }
   })
