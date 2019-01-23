@@ -67,11 +67,14 @@ app.post('/api/exercise/add', (req, res) => {
     } else {
       Users.findById(req.body.userId, (err, match) => {
       if (err) return console.log(err)
-      // console.log(match)
+      console.log(match)
       match.excercise.push({description: req.body.description, duration: req.body.duration, date: date.getTime()})
+      console.log(match)
       match.save((err, data) => {
-        if (err) console.log(err)
-        else res.json(data)
+        if (err) {
+          console.log(err)
+          res.json(err)
+        } else res.json(data)
       })
       // return done(null, match)
     })
