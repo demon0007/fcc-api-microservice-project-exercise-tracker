@@ -95,7 +95,7 @@ app.get('/api/exercise/log', (req, res) => {
         return  {
           id: match._id,
           name: match.name,
-          excercise: match.excercise.map( e => {return {description: e.description, duration: e.duration, date: new Date(e.date).getDate()+"-"+(new Date(e.date).getMonth()+1)+"-"+new Date(e.date).getFullYear()}})
+          excercise: match.excercise.map( e => {return {description: e.description, duration: e.duration, date: new Date(e.date).getDate()+"-"+('0' + (new Date(e.date).getMonth()+1)).slice(-2)+"-"+new Date(e.date).getFullYear()}})
         }
       })
       res.json(matchArray)
@@ -113,6 +113,10 @@ app.get('/api/exercise/log', (req, res) => {
     Users.findById(req.query.userId, ['_id', 'name', 'excercise'], (err, match) => {
       let sortedArr = []
       match.excercise.forEach((m) => {
+        console.log(m)
+        console.log
+        console.log(new Date(req.query.from).getTime())
+        console.log(new Date(req.query.to).getTime())
         if (m.date >= new Date(req.query.from).getTime() && m.date <= new Date(req.query.to).getTime()) {
           sortedArr.push(m)
         }
